@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferretería La Lomita | Herramientas y Maquinaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Topbar con foco en envíos y garantía -->
+  <div class="topbar">
+    <span>🚚 Envíos a todo el país · 🛠️ Garantía oficial 6 meses</span>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button class="mobile-menu-btn" id="open-sidebar-btn" aria-label="Abrir categorías">
+          ☰ <span>Categorías</span>
+        </button>
+        <a href="#" class="logo">LA LOMITA <span>FERRETERÍA</span></a>
+      </div>
+      <button class="cart-btn" id="cart-btn">
+        Carrito (<span id="cart-count">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Principal -->
+    <section class="hero">
+      <span class="hero-badge">Catálogo Oficial Mayorista & Minorista</span>
+      <h2>Maquinaria profesional y herramientas</h2>
+      <p>Consultá stock, precios y coordiná el envío por transporte directo a tu localidad.</p>
+    </section>
+
+    <!-- Banner Destacado de Condiciones Comerciales -->
+    <section class="conditions-banner">
+      <div class="banner-highlight">
+        <span class="banner-badge">Promoción Especial</span>
+        <h3>5% OFF PAGO CONTADO</h3>
+        <p>En compras superiores a U$S 1.000 o su equivalente en ARS</p>
+      </div>
+      <div class="banner-details">
+        <div class="banner-item">
+          <strong>💳 Financiación</strong>
+          <span>Plazos 0 - 30 - 60 - 90 - 120 días</span>
+        </div>
+        <div class="banner-item">
+          <strong>🧾 Facturación</strong>
+          <span>Emitimos Factura A y B</span>
+        </div>
+        <div class="banner-item">
+          <strong>🛠️ Garantía Oficial</strong>
+          <span>6 meses en toda la maquinaria</span>
+        </div>
+        <div class="banner-item">
+          <strong>⚠️ Compra minima </strong>
+          <span>U$S 250</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Telón de fondo para celulares -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Layout: Menú lateral + Grilla de Productos -->
+    <div class="catalog-layout">
+      
+      <!-- Menú Lateral Desplegable -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header-mobile">
+          <h3 class="sidebar-title">Categorías</h3>
+          <button class="close-sidebar-btn" id="close-sidebar-btn" aria-label="Cerrar menú">&times;</button>
+        </div>
+        
+        <div class="category-group">
+          <button class="filter-btn active" data-category="todos">Todos los Productos</button>
+        </div>
+
+        <!-- 1. Outlet / Liquidación -->
+        <div class="category-group">
+          <button class="filter-btn outlet-btn" data-category="outlet/liquidacion">🔥 Outlet / Liquidación</button>
+        </div>
+
+        <!-- 2. Lubricantes -->
+        <div class="category-group">
+          <button class="filter-btn" data-category="lubricantes">Lubricantes</button>
+        </div>
+
+        <!-- 3. Jardín y Poda (Desplegable) -->
+        <div class="category-group accordion">
+          <button class="accordion-header" data-category="jardin y poda">
+            <span>Jardín y Poda</span>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="subcategories">
+            <button class="sub-btn" data-sub="motosierras">Motosierras</button>
+            <button class="sub-btn" data-sub="tractores y accesorios">Tractores y Accesorios</button>
+            <button class="sub-btn" data-sub="desmalezadoras, bordeadoras y mas">Desmalezadoras, Bordeadoras y Más</button>
+            <button class="sub-btn" data-sub="cortadoras, motor y casco">Cortadoras, Motor y Casco</button>
+            <button class="sub-btn" data-sub="motores">Motores</button>
+            <button class="sub-btn" data-sub="motobombas y bombas">Motobombas y Bombas</button>
+            <button class="sub-btn" data-sub="equipos varios">Equipos Varios</button>
+            <button class="sub-btn" data-sub="hidrolavadoras y motocultivadoras">Hidrolavadoras y Motocultivadoras</button>
+            <button class="sub-btn" data-sub="pulverizadores, fumigadores y mas">Pulverizadores, Fumigadores y Más</button>
+          </div>
+        </div>
+
+        <!-- 4. Energía y Potencia (Desplegable) -->
+        <div class="category-group accordion">
+          <button class="accordion-header" data-category="energia y potencia">
+            <span>Energía y Potencia</span>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="subcategories">
+            <button class="sub-btn" data-sub="generadores y grupos electrogenos">Generadores y Grupos Electrógenos</button>
+          </div>
+        </div>
+
+        <!-- 5. Construcción (Desplegable) -->
+        <div class="category-group accordion">
+          <button class="accordion-header" data-category="construccion">
+            <span>Construcción</span>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="subcategories">
+            <button class="sub-btn" data-sub="carretillas y palas">Carretillas y Palas</button>
+            <button class="sub-btn" data-sub="mezcladoras, alisadora y compactadoras">Mezcladoras, Alisadora y Compactadoras</button>
+          </div>
+        </div>
+
+        <!-- 6. Aire Comprimido / Neumática (Desplegable) -->
+        <div class="category-group accordion">
+          <button class="accordion-header" data-category="aire comprimido/neumatica">
+            <span>Aire Comprimido / Neumática</span>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="subcategories">
+            <button class="sub-btn" data-sub="compresores">Compresores</button>
+            <button class="sub-btn" data-sub="herramientas neumaticas">Herramientas Neumáticas</button>
+          </div>
+        </div>
+
+        <!-- 7. Equipos Forestales (Desplegable) -->
+        <div class="category-group accordion">
+          <button class="accordion-header" data-category="equipos forestales">
+            <span>Equipos Forestales</span>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="subcategories">
+            <button class="sub-btn" data-sub="astilladores y sierras">Astilladores y Sierras</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Grilla de Productos -->
+      <section class="catalog-content">
+        <div class="products-grid" id="products-grid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal Detalle Técnico de la Máquina -->
+  <div class="modal-overlay" id="product-modal-overlay">
+    <div class="product-modal">
+      <button id="close-product-modal" class="close-btn">&times;</button>
+      <div id="product-modal-content" class="product-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Modal Carrito / Pedido de Presupuesto -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="cart-modal">
+      <div class="cart-header">
+        <h3>Tu Pedido / Presupuesto</h3>
+        <button id="close-modal" class="close-btn">&times;</button>
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      
+      <!-- Desglose de totales con IVA -->
+      <div class="cart-breakdown">
+        <div class="breakdown-row">
+          <span>Subtotal (Neto):</span>
+          <span id="cart-subtotal">$0</span>
+        </div>
+        <div class="breakdown-row">
+          <span>IVA discriminado:</span>
+          <span id="cart-iva-total">$0</span>
+        </div>
+        <div class="breakdown-row total-final">
+          <span>Total Final (c/ IVA):</span>
+          <span id="cart-total-price">$0</span>
+        </div>
+      </div>
+
+      <form id="order-form">
+        <input type="text" id="customer-name" placeholder="Nombre completo o Empresa" required>
+        <input type="text" id="customer-location" placeholder="Ciudad / Localidad y Provincia" required>
+        <select id="invoice-type">
+          <option value="Consumidor Final (Factura B)">Consumidor Final (Factura B)</option>
+          <option value="Factura A (Responsable Inscripto)">Factura A (Responsable Inscripto)</option>
+        </select>
+        <button type="submit" class="whatsapp-btn">Pedir Presupuesto por WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
