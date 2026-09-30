@@ -56,6 +56,12 @@ body {
   margin: 0 auto;
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .logo {
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -79,6 +85,11 @@ body {
   font-size: 0.78rem;
   font-weight: 700;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+.cart-btn:hover {
+  background: var(--primary-dark);
 }
 
 .container {
@@ -118,9 +129,7 @@ body {
   margin-top: 8px;
 }
 
-
-
-/* Banner de Condiciones Comerciales */
+/* Banner Destacado de Condiciones Comerciales */
 .conditions-banner {
   background: #ffffff;
   border: 1px solid var(--border);
@@ -246,6 +255,7 @@ body {
   border-color: #fee2e2;
   background: #fef2f2;
 }
+
 .sidebar .filter-btn.outlet-btn.active {
   background: #ef4444;
   color: #ffffff;
@@ -330,7 +340,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  image-rendering: -webkit-optimize-contrast; /* Fuerza mayor nitidez de bordes en pantallas estándar */
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .product-badge {
@@ -374,24 +384,23 @@ body {
   overflow: hidden;
 }
 
-.product-price {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--accent-dark);
-  margin: 6px 0 8px 0;
-}
-
 .add-btn {
   background: #f1f5f9;
   color: var(--accent-dark);
   border: none;
-  padding: 8px 0;
+  padding: 9px 0;
   border-radius: 6px;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   font-weight: 700;
   width: 100%;
   margin-top: auto;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+.add-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
 }
 
 /* Modales */
@@ -462,7 +471,12 @@ body {
   justify-content: center;
   margin-bottom: 12px;
 }
-.modal-img-wrapper img { width: 90%; height: 90%; object-fit: contain; }
+
+.modal-img-wrapper img { 
+  width: 90%; 
+  height: 90%; 
+  object-fit: contain; 
+}
 
 .modal-info h3 {
   font-family: 'Barlow Condensed', sans-serif;
@@ -470,13 +484,6 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   color: var(--accent-dark);
-}
-
-.modal-price {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--primary);
-  margin: 6px 0 10px 0;
 }
 
 .modal-desc {
@@ -494,6 +501,7 @@ body {
   padding: 10px 14px;
   margin-bottom: 14px;
 }
+
 .specs-list li {
   font-size: 0.8rem;
   font-weight: 600;
@@ -502,6 +510,7 @@ body {
   display: flex;
   align-items: center;
 }
+
 .specs-list li::before {
   content: '✔';
   color: var(--primary);
@@ -518,36 +527,38 @@ body {
   font-size: 0.95rem;
   width: 100%;
   cursor: pointer;
+  transition: var(--transition);
 }
 
-/* Carrito */
+.add-btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+/* Modal Carrito / Lista de Cotización */
 .cart-header {
   padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
+
 .cart-items {
-  max-height: 38vh;
+  max-height: 42vh;
   overflow-y: auto;
-  margin: 12px 0;
+  margin: 12px 0 16px 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 .cart-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: var(--bg-main);
-  padding: 10px;
+  padding: 10px 12px;
   border-radius: 8px;
+  border: 1px solid var(--border);
 }
-.cart-total {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.1rem;
-  font-weight: 800;
-  margin-bottom: 12px;
-}
+
 #order-form input, #order-form select {
   background: #fff;
   border: 1px solid var(--border);
@@ -556,7 +567,14 @@ body {
   font-size: 0.85rem;
   width: 100%;
   margin-bottom: 8px;
+  color: var(--text-main);
 }
+
+#order-form input:focus, #order-form select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
 .whatsapp-btn {
   background: var(--accent-wa);
   color: #fff;
@@ -567,100 +585,12 @@ body {
   font-weight: 700;
   width: 100%;
   cursor: pointer;
-}
-
-/* Responsive Desktop */
-@media (min-width: 900px) {
-  .hero h2 { font-size: 3.2rem; }
- 
-  
-  .conditions-banner {
-    grid-template-columns: 280px 1fr;
-    padding: 20px 24px;
-  }
-  .banner-details {
-    grid-template-columns: repeat(4, 1fr);
-    border-left: 1px solid var(--border);
-    padding-left: 20px;
-  }
-
-  .catalog-layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    align-items: start;
-    gap: 32px;
-  }
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-  }
-  .modal-overlay { align-items: center; }
-  .product-modal {
-    max-width: 760px;
-    border-radius: 16px;
-    padding: 24px;
-    transform: scale(0.95);
-  }
-  .modal-overlay.active .product-modal { transform: scale(1); }
-  .product-modal::before { display: none; }
-  .product-modal-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: center;
-  }
-  .cart-modal {
-    max-width: 440px;
-    border-radius: 16px;
-    margin: auto;
-  }
-}
-/* Indicador de IVA en la tarjeta de producto */
-.price-tag-wrapper {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  margin: 6px 0 8px 0;
-}
-
-.iva-badge {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
-/* Desglose de totales en el modal de presupuesto */
-.cart-breakdown {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: var(--bg-main);
-  padding: 12px;
-  border-radius: 8px;
-  margin: 12px 0 16px 0;
-}
-
-.breakdown-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.breakdown-row.total-final {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--accent-dark);
-  border-top: 1px dashed var(--border);
-  padding-top: 8px;
+  transition: var(--transition);
   margin-top: 4px;
 }
 
-/* Agrupador navbar izquierdo */
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.whatsapp-btn:hover {
+  filter: brightness(0.95);
 }
 
 /* Botón Hamburguesa en Mobile */
@@ -678,7 +608,7 @@ body {
   cursor: pointer;
 }
 
-/* Botón cerrar dentro del sidebar */
+/* Header interno del Sidebar móvil */
 .sidebar-header-mobile {
   display: flex;
   justify-content: space-between;
@@ -720,7 +650,7 @@ body {
   pointer-events: auto;
 }
 
-/* Comportamiento del Sidebar en Mobile (Cajón lateral) */
+/* Comportamiento Mobile (<900px) */
 @media (max-width: 899px) {
   .sidebar {
     position: fixed;
@@ -744,11 +674,225 @@ body {
   }
 }
 
-/* Comportamiento en Escritorio (Desktop fijo sin botón de abrir/cerrar) */
+/* Responsive Desktop (>=900px) */
 @media (min-width: 900px) {
+  .hero h2 { 
+    font-size: 3.2rem; 
+  }
+
+  .conditions-banner {
+    grid-template-columns: 280px 1fr;
+    padding: 20px 24px;
+  }
+
+  .banner-details {
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid var(--border);
+    padding-left: 20px;
+  }
+
+  .catalog-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    align-items: start;
+    gap: 32px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .modal-overlay { 
+    align-items: center; 
+  }
+
+  .product-modal {
+    max-width: 760px;
+    border-radius: 16px;
+    padding: 24px;
+    transform: scale(0.95);
+  }
+
+  .modal-overlay.active .product-modal { 
+    transform: scale(1); 
+  }
+
+  .product-modal::before { 
+    display: none; 
+  }
+
+  .product-modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .cart-modal {
+    max-width: 440px;
+    border-radius: 16px;
+    margin: auto;
+  }
+
   .mobile-menu-btn,
   .close-sidebar-btn,
   .sidebar-backdrop {
     display: none !important;
   }
+}
+/* Carrusel de Discontinuados */
+.outlet-carousel-section {
+  background: #ffffff;
+  border: 1px solid #fee2e2;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel-header {
+  margin-bottom: 12px;
+}
+
+.carousel-badge {
+  display: inline-block;
+  background: #fef2f2;
+  color: #ef4444;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.carousel-header h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-track-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 14px;
+  /* Subimos de 0.4s a 0.85s con una curva suave */
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Tarjeta dentro del carrusel */
+.carousel-slide {
+  /* En mobile: 2 por fila descontando el gap */
+  flex: 0 0 calc((100% - 14px) / 2);
+  max-width: calc((100% - 14px) / 2);
+  box-sizing: border-box;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-img);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+@media (min-width: 900px) {
+  .carousel-slide {
+    /* En desktop: 4 por fila descontando los 3 gaps */
+    flex: 0 0 calc((100% - (14px * 3)) / 4);
+    max-width: calc((100% - (14px * 3)) / 4);
+  }
+}
+
+.carousel-slide:hover {
+  border-color: #ef4444;
+  transform: translateY(-2px);
+}
+
+.carousel-slide .img-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #ffffff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.carousel-slide .img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carousel-slide-brand {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ef4444;
+  text-transform: uppercase;
+}
+
+.carousel-slide-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  line-height: 1.25;
+  margin-top: 2px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Flechas de navegación */
+.carousel-nav-btn {
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.carousel-nav-btn:hover {
+  background: #ef4444;
+}
+
+.carousel-nav-btn.prev {
+  left: 6px;
+}
+
+.carousel-nav-btn.next {
+  right: 6px;
 }

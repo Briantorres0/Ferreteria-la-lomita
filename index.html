@@ -26,7 +26,7 @@
         <a href="#" class="logo">DON HECTOR <span>FERRETERÍA</span></a>
       </div>
       <button class="cart-btn" id="cart-btn">
-        Carrito (<span id="cart-count">0</span>)
+        Consultar Lista (<span id="cart-count">0</span>)
       </button>
     </div>
   </header>
@@ -36,20 +36,20 @@
     <section class="hero">
       <span class="hero-badge">Catálogo Oficial Mayorista & Minorista</span>
       <h2>Maquinaria profesional y herramientas</h2>
-      <p>Consultá stock, precios y coordiná el envío por transporte directo a tu localidad.</p>
+      <p>Explorá nuestro catálogo, armá tu lista y solicitá cotización y stock al instante.</p>
     </section>
 
     <!-- Banner Destacado de Condiciones Comerciales -->
     <section class="conditions-banner">
       <div class="banner-highlight">
-        <span class="banner-badge">Promoción Especial</span>
-        <h3>5% OFF PAGO CONTADO</h3>
-        <p>En compras superiores a U$S 1.000 o su equivalente en ARS</p>
+        <span class="banner-badge">Atención Comercial</span>
+        <h3>SOLICITÁ TU PRESUPUESTO</h3>
+        <p>Ventas por mayor y menor con asesoramiento técnico personalizado</p>
       </div>
       <div class="banner-details">
         <div class="banner-item">
           <strong>💳 Financiación</strong>
-          <span>Plazos 0 - 30 - 60 - 90 - 120 días</span>
+          <span>Consultá opciones y plazos vigentes</span>
         </div>
         <div class="banner-item">
           <strong>🧾 Facturación</strong>
@@ -60,9 +60,24 @@
           <span>6 meses en toda la maquinaria</span>
         </div>
         <div class="banner-item">
-          <strong>⚠️ Compra minima </strong>
-          <span>U$S 250</span>
+          <strong>📦 Envíos</strong>
+          <span>Despacho directo por transporte</span>
         </div>
+      </div>
+    </section>
+
+    <!-- Carrusel Automático de Discontinuados / Outlet -->
+    <section class="outlet-carousel-section" id="outlet-section">
+      <div class="carousel-header">
+        <span class="carousel-badge">🔥 DISCONTINUADOS</span>
+        <h3>Oportunidades en Equipos Discontinuados</h3>
+      </div>
+      <div class="carousel-wrapper">
+        <button class="carousel-nav-btn prev" id="carousel-prev" aria-label="Anterior">&#10094;</button>
+        <div class="carousel-track-container">
+          <div class="carousel-track" id="carousel-track"></div>
+        </div>
+        <button class="carousel-nav-btn next" id="carousel-next" aria-label="Siguiente">&#10095;</button>
       </div>
     </section>
 
@@ -175,30 +190,14 @@
     </div>
   </div>
 
-  <!-- Modal Carrito / Pedido de Presupuesto -->
+  <!-- Modal Lista de Cotización -->
   <div class="modal-overlay" id="modal-overlay">
     <div class="cart-modal">
       <div class="cart-header">
-        <h3>Tu Pedido / Presupuesto</h3>
+        <h3>Lista para Cotización</h3>
         <button id="close-modal" class="close-btn">&times;</button>
       </div>
       <div class="cart-items" id="cart-items"></div>
-      
-      <!-- Desglose de totales con IVA -->
-      <div class="cart-breakdown">
-        <div class="breakdown-row">
-          <span>Subtotal (Neto):</span>
-          <span id="cart-subtotal">$0</span>
-        </div>
-        <div class="breakdown-row">
-          <span>IVA discriminado:</span>
-          <span id="cart-iva-total">$0</span>
-        </div>
-        <div class="breakdown-row total-final">
-          <span>Total Final (c/ IVA):</span>
-          <span id="cart-total-price">$0</span>
-        </div>
-      </div>
 
       <form id="order-form">
         <input type="text" id="customer-name" placeholder="Nombre completo o Empresa" required>
@@ -207,7 +206,7 @@
           <option value="Consumidor Final (Factura B)">Consumidor Final (Factura B)</option>
           <option value="Factura A (Responsable Inscripto)">Factura A (Responsable Inscripto)</option>
         </select>
-        <button type="submit" class="whatsapp-btn">Pedir Presupuesto por WhatsApp</button>
+        <button type="submit" class="whatsapp-btn">Consultar Cotización por WhatsApp</button>
       </form>
     </div>
   </div>

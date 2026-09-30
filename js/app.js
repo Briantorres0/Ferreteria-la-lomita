@@ -7,9 +7,6 @@ const cartBtn = document.getElementById('cart-btn');
 const modalOverlay = document.getElementById('modal-overlay');
 const closeModal = document.getElementById('close-modal');
 const cartItemsContainer = document.getElementById('cart-items');
-const cartTotalPrice = document.getElementById('cart-total-price');
-const cartSubtotal = document.getElementById('cart-subtotal');
-const cartIvaTotal = document.getElementById('cart-iva-total');
 const orderForm = document.getElementById('order-form');
 
 // Modal Ficha Técnica
@@ -22,22 +19,11 @@ const filterBtns = document.querySelectorAll('.sidebar .filter-btn');
 const accordionHeaders = document.querySelectorAll('.accordion-header');
 const subBtns = document.querySelectorAll('.sub-btn');
 
-// Formato de moneda ARS con soporte para centavos
-const formatPrice = (price) => {
-  const num = Number(price) || 0;
-  return new Intl.NumberFormat('es-AR', { 
-    style: 'currency', 
-    currency: 'ARS', 
-    minimumFractionDigits: num % 1 === 0 ? 0 : 2,
-    maximumFractionDigits: 2 
-  }).format(num);
-};
-
-// Normalizador de texto para comparar categorías y subcategorías
+// Normalizador para filtros de categorías
 const normalize = (text) => 
   (text || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
-// Renderizado de tarjetas de productos
+// Renderizado de tarjetas de catálogo
 function renderProducts(items) {
   productsGrid.innerHTML = '';
 
@@ -54,8 +40,6 @@ function renderProducts(items) {
     const card = document.createElement('div');
     card.classList.add('product-card');
 
-    const ivaRate = product.iva !== undefined ? product.iva : 21;
-
     card.innerHTML = `
       <div class="img-wrapper" onclick="openProductModal(${product.id})">
         <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy">
@@ -64,11 +48,7 @@ function renderProducts(items) {
       <div class="product-info">
         <span class="product-brand">${product.brand}</span>
         <h4 class="product-title" onclick="openProductModal(${product.id})">${product.name}</h4>
-        <div class="price-tag-wrapper">
-          <span class="product-price">${formatPrice(product.price)}</span>
-          <span class="iva-badge">+ IVA (${ivaRate}%)</span>
-        </div>
-        <button class="add-btn" onclick="openProductModal(${product.id})">Descripción</button>
+        <button class="add-btn" onclick="openProductModal(${product.id})">Ver Ficha Técnica</button>
       </div>
     `;
 
@@ -81,7 +61,16 @@ window.openProductModal = function(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
 
-  const ivaRate = product.iva !== undefined ? product.iva : 21;
+  const validSpecs = (product.specs && Array.isArray(product.specs)) 
+    ? product.specs.filter(s => s && s.trim() !== '') 
+    : [];
+
+  const specsList = validSpecs.length > 0
+    ? `<label style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Especificaciones técnicas:</label>
+       <ul class="specs-list">
+         ${validSpecs.map(spec => `<li>${spec}</li>`).join('')}
+       </ul>`
+    : '';
 
   productModalContent.innerHTML = `
     <div class="modal-img-wrapper">
@@ -89,20 +78,11 @@ window.openProductModal = function(productId) {
     </div>
     <div class="modal-info">
       <span class="product-brand">${product.brand} · Garantía Oficial 6 Meses</span>
-      <h3>${product.name}</h3>
-      <div class="modal-price">
-        ${formatPrice(product.price)} 
-        <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">+ IVA (${ivaRate}%)</span>
-      </div>
-      <p class="modal-desc">${product.description}</p>
-      
-      <label style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Especificaciones técnicas:</label>
-      <ul class="specs-list">
-        ${product.specs.map(spec => `<li>${spec}</li>`).join('')}
-      </ul>
-
+      <h3 style="margin-bottom: 12px;">${product.name}</h3>
+      <p class="modal-desc">${product.description || ''}</p>
+      ${specsList}
       <button class="add-btn-primary" onclick="addToCart(${product.id})">
-        Agregar al Carrito
+        Agregar a la Consulta
       </button>
     </div>
   `;
@@ -110,7 +90,7 @@ window.openProductModal = function(productId) {
   productModalOverlay.classList.add('active');
 };
 
-// Agregar al presupuesto
+// Agregar ítem a la lista de consulta
 window.addToCart = function(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -123,8 +103,6 @@ window.addToCart = function(productId) {
     cart.push({
       id: product.id,
       name: product.name,
-      price: product.price,
-      iva: product.iva !== undefined ? product.iva : 21,
       brand: product.brand,
       quantity: 1
     });
@@ -135,56 +113,53 @@ window.addToCart = function(productId) {
   modalOverlay.classList.add('active');
 };
 
-// Quitar del presupuesto
+// Modificar cantidades (+ / -)
+window.changeQuantity = function(productId, delta) {
+  const item = cart.find(i => i.id === productId);
+  if (!item) return;
+  item.quantity += delta;
+  if (item.quantity <= 0) {
+    removeFromCart(productId);
+  } else {
+    updateCartUI();
+  }
+};
+
+// Quitar ítem
 window.removeFromCart = function(productId) {
   cart = cart.filter(item => item.id !== productId);
   updateCartUI();
 };
 
-// Actualizar vista del carrito y cálculos de IVA
+// Actualizar vista del modal de consulta
 function updateCartUI() {
   const totalCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   cartCount.textContent = totalCount;
 
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding: 20px 0;">No seleccionaste ninguna máquina aún.</p>';
-    if (cartSubtotal) cartSubtotal.textContent = '$0';
-    if (cartIvaTotal) cartIvaTotal.textContent = '$0';
-    cartTotalPrice.textContent = '$0';
     return;
   }
 
   cartItemsContainer.innerHTML = '';
-  let subtotalNeto = 0;
-  let totalIva = 0;
 
   cart.forEach(item => {
-    const itemSubtotal = item.price * item.quantity;
-    const itemIva = itemSubtotal * (item.iva / 100);
-
-    subtotalNeto += itemSubtotal;
-    totalIva += itemIva;
-
     const itemEl = document.createElement('div');
     itemEl.classList.add('cart-item');
     itemEl.innerHTML = `
-      <div>
+      <div style="flex: 1; padding-right: 10px;">
         <strong>${item.name}</strong>
-        <div style="font-size: 0.75rem; color: var(--text-muted);">${item.brand} · IVA ${item.iva}%</div>
-        <div style="font-weight: 700; font-size: 0.85rem; margin-top: 2px;">
-          ${item.quantity}x ${formatPrice(itemSubtotal)} <span style="font-size: 0.7rem; font-weight: normal; color: var(--text-muted);">(Neto)</span>
-        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">${item.brand}</div>
       </div>
-      <button style="background:none; border:none; color:#ef4444; font-size:1.4rem; cursor:pointer;" onclick="removeFromCart(${item.id})">&times;</button>
+      <div style="display:flex; align-items:center; gap: 8px;">
+        <button style="width:24px; height:24px; border:1px solid #cbd5e1; background:#fff; border-radius:4px; font-weight:700; cursor:pointer;" onclick="changeQuantity(${item.id}, -1)">-</button>
+        <span style="font-size:0.85rem; font-weight:700;">${item.quantity}</span>
+        <button style="width:24px; height:24px; border:1px solid #cbd5e1; background:#fff; border-radius:4px; font-weight:700; cursor:pointer;" onclick="changeQuantity(${item.id}, 1)">+</button>
+      </div>
+      <button style="background:none; border:none; color:#ef4444; font-size:1.4rem; cursor:pointer; margin-left:12px;" onclick="removeFromCart(${item.id})">&times;</button>
     `;
     cartItemsContainer.appendChild(itemEl);
   });
-
-  const totalFinal = subtotalNeto + totalIva;
-
-  if (cartSubtotal) cartSubtotal.textContent = formatPrice(subtotalNeto);
-  if (cartIvaTotal) cartIvaTotal.textContent = formatPrice(totalIva);
-  cartTotalPrice.textContent = formatPrice(totalFinal);
 }
 
 // Cierre y apertura de modales
@@ -199,7 +174,7 @@ modalOverlay.addEventListener('click', (e) => {
   if (e.target === modalOverlay) modalOverlay.classList.remove('active');
 });
 
-// Envío a WhatsApp con desglose de IVA y datos comerciales
+// Envío a WhatsApp
 orderForm.addEventListener('submit', (e) => {
   e.preventDefault();
   if (cart.length === 0) return;
@@ -208,53 +183,37 @@ orderForm.addEventListener('submit', (e) => {
   const location = document.getElementById('customer-location').value;
   const invoice = document.getElementById('invoice-type').value;
   
-  // Reemplazar con el número oficial de atención de la ferretería
   const phone = "2244424335"; 
 
-  let message = `🛠️ *NUEVO PEDIDO / COTIZACIÓN - FERRETERÍA DON HECTOR*\n`;
+  let message = `🛠️️ *CONSULTA DE DISPONIBILIDAD Y COTIZACIÓN - FERRETERÍA DON HECTOR*\n`;
   message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
   message += `👤 *Cliente:* ${name}\n`;
-  message += `📍 *Destino del Envío:* ${location}\n`;
-  message += `🧾 *Tipo de Factura:* ${invoice}\n\n`;
-  message += `📦 *Maquinaria solicitada:*\n`;
-
-  let subtotalNeto = 0;
-  let totalIva = 0;
+  message += `📍 *Destino:* ${location}\n`;
+  message += `🧾 *Facturación:* ${invoice}\n\n`;
+  message += `📦 *Productos consultados:*\n`;
 
   cart.forEach(item => {
-    const itemSubtotal = item.price * item.quantity;
-    subtotalNeto += itemSubtotal;
-    totalIva += itemSubtotal * (item.iva / 100);
-
-    message += `• ${item.name} x${item.quantity} ➔ ${formatPrice(itemSubtotal)} (+${item.iva}% IVA)\n`;
+    message += `• ${item.name} (${item.brand}) x${item.quantity}u.\n`;
   });
 
-  const totalFinal = subtotalNeto + totalIva;
-
   message += `\n━━━━━━━━━━━━━━━━━━━━━\n`;
-  message += `🔹 *Subtotal Neto:* ${formatPrice(subtotalNeto)}\n`;
-  message += `🔹 *IVA Estimado:* ${formatPrice(totalIva)}\n`;
-  message += `💰 *TOTAL ESTIMADO (c/ IVA):* ${formatPrice(totalFinal)}\n\n`;
-  message += `_Hola! Quería consultar disponibilidad de stock y coordinar el envío a mi localidad._`;
+  message += `_Hola! Quería consultar disponibilidad de stock, medios de envío y cotización para estos productos._`;
 
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
 });
 
-// Limpieza de estados visuales en el sidebar
+// Sidebar & filtros
 function clearAllActiveStates() {
   filterBtns.forEach(btn => btn.classList.remove('active'));
   accordionHeaders.forEach(btn => btn.classList.remove('active'));
   subBtns.forEach(btn => btn.classList.remove('active'));
 }
 
-// 1. Botones simples (Todos, Outlet, Lubricantes)
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     clearAllActiveStates();
     btn.classList.add('active');
-
-    // Cierra todos los acordeones desplegados
     document.querySelectorAll('.accordion').forEach(acc => acc.classList.remove('open'));
 
     const category = btn.getAttribute('data-category');
@@ -266,18 +225,14 @@ filterBtns.forEach(btn => {
   });
 });
 
-// 2. Encabezados de categorías padre con acordeón
 accordionHeaders.forEach(header => {
   header.addEventListener('click', () => {
     const parentAccordion = header.closest('.accordion');
-
-    // Cierra los demás acordeones abiertos
     document.querySelectorAll('.accordion').forEach(acc => {
       if (acc !== parentAccordion) acc.classList.remove('open');
     });
 
     parentAccordion.classList.toggle('open');
-
     clearAllActiveStates();
     header.classList.add('active');
 
@@ -286,7 +241,6 @@ accordionHeaders.forEach(header => {
   });
 });
 
-// 3. Botones de subcategorías internas
 subBtns.forEach(sub => {
   sub.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -301,10 +255,7 @@ subBtns.forEach(sub => {
   });
 });
 
-// Carga inicial
-renderProducts(products);
-
-// Control del Menú Desplegable Lateral en Móviles
+// Mobile Sidebar
 const openSidebarBtn = document.getElementById('open-sidebar-btn');
 const closeSidebarBtn = document.getElementById('close-sidebar-btn');
 const sidebar = document.getElementById('sidebar');
@@ -313,7 +264,7 @@ const sidebarBackdrop = document.getElementById('sidebar-backdrop');
 function openMobileSidebar() {
   sidebar.classList.add('mobile-open');
   sidebarBackdrop.classList.add('active');
-  document.body.style.overflow = 'hidden'; // Bloquea el scroll de la web de fondo
+  document.body.style.overflow = 'hidden';
 }
 
 function closeMobileSidebar() {
@@ -326,7 +277,6 @@ if (openSidebarBtn) openSidebarBtn.addEventListener('click', openMobileSidebar);
 if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeMobileSidebar);
 if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', closeMobileSidebar);
 
-// Auto-cerrar el sidebar en celular tras hacer clic en una categoría o subcategoría
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     if (window.innerWidth < 900) closeMobileSidebar();
@@ -338,3 +288,100 @@ subBtns.forEach(sub => {
     if (window.innerWidth < 900) closeMobileSidebar();
   });
 });
+
+// ============================================
+// CARRUSEL AUTOMÁTICO DE PRODUCTOS DISCONTINUADOS
+// ============================================
+function initOutletCarousel() {
+  const track = document.getElementById('carousel-track');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  const section = document.getElementById('outlet-section');
+
+  if (!track || !section) return;
+
+  const discontinuedProducts = products.filter(
+    p => normalize(p.category) === 'discontinuados'
+  );
+
+  if (discontinuedProducts.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  track.innerHTML = discontinuedProducts.map(p => `
+    <div class="carousel-slide" onclick="openProductModal(${p.id})">
+      <div class="img-box">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
+      </div>
+      <span class="carousel-slide-brand">${p.brand}</span>
+      <h4 class="carousel-slide-title">${p.name}</h4>
+    </div>
+  `).join('');
+
+  let currentIndex = 0;
+  let autoSlideTimer = null;
+
+  const getVisibleCards = () => window.innerWidth >= 900 ? 4 : 2;
+
+  function updateSlider() {
+    const slides = track.querySelectorAll('.carousel-slide');
+    if (!slides.length) return;
+
+    const visibleCards = getVisibleCards();
+    const maxIndex = Math.max(0, discontinuedProducts.length - visibleCards);
+
+    if (currentIndex > maxIndex) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = maxIndex;
+
+    // Medición exacta del ancho de tarjeta + gap de 14px
+    const slideRect = slides[0].getBoundingClientRect();
+    const stepSize = slideRect.width + 14;
+
+    track.style.transform = `translateX(-${currentIndex * stepSize}px)`;
+  }
+
+  function nextSlide() {
+    const visibleCards = getVisibleCards();
+    const maxIndex = Math.max(0, discontinuedProducts.length - visibleCards);
+    currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+    updateSlider();
+  }
+
+  function prevSlide() {
+    const visibleCards = getVisibleCards();
+    const maxIndex = Math.max(0, discontinuedProducts.length - visibleCards);
+    currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+    updateSlider();
+  }
+
+  if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+
+  function startAutoplay() {
+    // Pasa de 3500 (3.5s) a 5500 (5.5s)
+    autoSlideTimer = setInterval(nextSlide, 5500);
+  }
+
+  function stopAutoplay() {
+    if (autoSlideTimer) clearInterval(autoSlideTimer);
+  }
+
+  function resetTimer() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  section.addEventListener('mouseenter', stopAutoplay);
+  section.addEventListener('mouseleave', startAutoplay);
+
+  window.addEventListener('resize', updateSlider);
+
+  // Inicializar posición
+  updateSlider();
+  startAutoplay();
+}
+
+// Carga inicial
+renderProducts(products);
+initOutletCarousel();
