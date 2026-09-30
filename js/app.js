@@ -211,7 +211,7 @@ orderForm.addEventListener('submit', (e) => {
   // Reemplazar con el número oficial de atención de la ferretería
   const phone = "2244424335"; 
 
-  let message = `🛠️ *NUEVO PEDIDO / COTIZACIÓN - FERRETERÍA LA LOMITA*\n`;
+  let message = `🛠️ *NUEVO PEDIDO / COTIZACIÓN - FERRETERÍA DON HECTOR*\n`;
   message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
   message += `👤 *Cliente:* ${name}\n`;
   message += `📍 *Destino del Envío:* ${location}\n`;

@@ -1091,7 +1091,7 @@ const products = [
   {
     id:84,
     name: 'Remachadora neumatica',
-    category: 'Aire Comprimido/Neuemática',
+    category: 'Aire Comprimido/Neumática',
     subcategory: 'Herramientas Neumáticas',
     price: 32,
     iva: 10.5,
@@ -1104,7 +1104,7 @@ const products = [
   {
     id:85,
     name: 'Filtro, regulador y lubricador',
-    category: 'Aire Comprimido/Neuemática',
+    category: 'Aire Comprimido/Neumática',
     subcategory: 'Herramientas Neumáticas',
     price: 36,
     iva: 10.5,
@@ -1117,7 +1117,7 @@ const products = [
   {
     id:86,
     name: 'Filtro, regulador y lubricador',
-    category: 'Aire Comprimido/Neuemática',
+    category: 'Aire Comprimido/Neumática',
     subcategory: 'Herramientas Neumáticas',
     price: 36,
     iva: 10.5,
@@ -1130,7 +1130,7 @@ const products = [
   {
     id:87,
     name: 'Mini lubricador 1/4"',
-    category: 'Aire Comprimido/Neuemática',
+    category: 'Aire Comprimido/Neumática',
     subcategory: 'Herramientas Neumáticas',
     price: 4,
     iva: 10.5,
@@ -1143,7 +1143,7 @@ const products = [
   {
     id:88,
     name: 'Drenador y trampa de agua',
-    category: 'Aire Comprimido/Neuemática',
+    category: 'Aire Comprimido/Neumática',
     subcategory: 'Herramientas Neumáticas',
     price: 5,
     iva: 10.5,
@@ -1156,7 +1156,7 @@ const products = [
   {
     id:89,
     name: 'Herramienta multifuncion',
-    category: 'Aire Comprimido/Neuemática',
+    category: 'Aire Comprimido/Neumática',
     subcategory: 'Herramientas Neumáticas',
     price: 35,
     iva: 10.5,
