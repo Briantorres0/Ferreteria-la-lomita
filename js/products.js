@@ -1175,7 +1175,7 @@ const products = [
     category: 'Construcción',
     subcategory:'Carretillas y palas',
     price: 61,
-    iva: 10.5;
+    iva: 10.5,
     badge: '',
     brand: 'OBRA',
     specs: ['150 Kg', '72L'],
@@ -1301,7 +1301,7 @@ const products = [
     image: '/fotos/Construccion/MH 8140 25.jpg',
     description: 'Con tambor de 570mm y boca de 380mm. Tipo de aislacion clase 2.'
   },
-   {
+  {
     id: 100,
     name: 'Mezcladora de hormigon',
     category: 'Construcción',
@@ -1311,10 +1311,10 @@ const products = [
     badge: '',
     brand: 'OBRA',
     specs: ['800 W', '180L'],
-    image: '/fotos/Construccion/MH 8180 25.jog',
+    image: '/fotos/Construccion/MH 8180 25.jpg',
     description: 'Con tambor de 630mm y boca de 390mm. Tipo de aislacion clase 2.'
   },
-   {
+  {
     id: 101,
     name: 'Compactor de empuje a gasolina',
     category: 'Construcción',
@@ -1324,10 +1324,10 @@ const products = [
     badge: '',
     brand: 'OBRA',
     specs: ['196cc', '6,5 Hp'],
-    image: '/fotos/Construccion/CE1090.jpg',
+    image: '/fotos/Construccion/CE 1090.jpg',
     description: 'Fuerza centrifuga de 10Kn, profundidad de compactacion de 30cm y rendimiento de 750 m2/h.'
   },
-   {
+  {
     id: 102,
     name: 'Compactadora de empuje a gasolina',
     category: 'Construcción',
@@ -1340,30 +1340,231 @@ const products = [
     image: '/fotos/Construccion/CE 10125.jpg',
     description: 'Fuerza centrifuga de 20 Kn, profundidad de compactacion de 30cm y rendimiento de 660 m2/h.'
   },
-   {
-    id: ,
-    name: '',
+  {
+    id: 103,
+    name: 'Cortadora de concreto a gasolina',
     category: 'Construcción',
     subcategory:'Mezcladoras, Alisadoras y Compactadoras',
-    price: ,
+    price: 1000,
     iva:10.5,
     badge: '',
-    brand: '',
-    specs: [''],
-    image: '/fotos/Construccion/',
-    description: ''
+    brand: 'OBRA',
+    specs: ['389 cc', '14 Hp', '40L'],
+    image: '/fotos/Construccion/CC 1019.jpg',
+    description: 'Con profundidad maxima de corte de 190mm, compatible con hojas de 350-500mm.'
   },
+  {
+    id: 104,
+    name: 'Alisadora de concreto a gasolina',
+    category: 'Construcción',
+    subcategory:'Mezcladoras, Alisadoras y Compactadoras',
+    price: 660,
+    iva:10.5,
+    badge: '',
+    brand: 'OBRA',
+    specs: ['6,5 Hp', '196cc'],
+    image: '/fotos/Construccion/AC 1024.jpg',
+    description: 'Con llana de 600mm(24"), hoja de 230 x 120mm, velocidad de 60-100 rpm e inclinacion regulable de 0º a 15º.'
+  },
+
+  
+  
 
   // --- ENERGÍA ---
   {
-    id: 10,
-    name: 'Generador Naftero Shimaha 6.5 kW con Arranque',
-    category: 'Energía',
-    price: 1350000,
-    badge: 'Esencial',
+    id: 105,
+    name: 'Grupo electrogeno',
+    category: 'Energía y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 8950,
+    iva: 10.5,
+    badge: '',
     brand: 'Shimaha',
-    specs: ['Potencia 6.5 kW', 'Motor 16 HP 4T', 'Salida 220V', 'Batería incluida'],
-    image: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&auto=format&fit=crop&q=80',
-    description: 'Generador profesional con regulación automática de voltaje (AVR), arranque eléctrico/manual, voltímetro y kit de ruedas de traslado.'
-  }
+    specs: ['42 kVa', '80L'],
+    image: '/fotos/Energia y potencia/SH-LG31X.jpg',
+    description: 'De 39 KVA de potencia media, con salida 380/220 V, frecuencia de 50Hz, conexion trifasica 3P 4W en estrella y factor de potencia 0,8.'
+  },
+  {
+    id: 106,
+    name: 'Grupo electrogeno',
+    category: 'Energia y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Shimaha',
+    specs: ['23 kVa', '80L'],
+    image: '/fotos/Energia y Potencia/SH-LG16X.jpg',
+    description: 'De 20 KVA de potencia media, con salida 380/220 V, frecuencia de 50Hz, conexion trifasica 3P 4W en estrella y factor de potencia 0,8.'
+  },
+  {
+    id: 107,
+    name: 'Tablero automatico',
+    category: 'Energia y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Shimaha',
+    specs: [''],
+    image: '/fotos/Energia y Potencia/SH-ATSLG16X.jpg',
+    description: 'Para grupo electrogeno SH-LG16X con peso de 24,7Kg.'
+  },
+  {
+    id: 108,
+    name: 'Generador a gas natural',
+    category: 'Energia y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Shimaha',
+    specs: ['16 Hp', '6,5kW'],
+    image: '/fotos/Energia y Potencia/PT7500DEW-G.jpg',
+    description: 'Envasado o nafta, con motor simil Honda, arranque manual/electrico y salida de 220V.'
+  },
+  {
+    id: 109,
+    name: 'Generador electrico',
+    category: 'Energia y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Shimaha',
+    specs: ['19 Hp', '8,5kW'],
+    image: '/fotos/Energia y Potencia/SHP8500E.jpg',
+    description: 'Con motor simil Honda, arranque electrico, salida de 220V y bateria incluida.'
+  },
+  {
+    id: 110,
+    name: 'Generador electrico',
+    category: 'Energia y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Shimaha',
+    specs: ['16Hp', '6,5kW'],
+    image: '/fotos/Energia y Potencia/SHP6500E.jpg',
+    description: 'Con motor simil Honda, arranque electrico, salida de 220V y bateria incluida.'
+  },
+  {
+    id: 111,
+    name: 'Generador electrico',
+    category: 'Energia y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Shimaha',
+    specs: ['223 cc', '7,5 Hp', '15L', '4T'],
+    image: '/fotos/Energia y Potencia/SHGG3500 50E.jpg',
+    description: 'Con salida de 220V, arranque electrico y para uso profesional.'
+  },
+  {
+    id: 112,
+    name: 'Generador electrico',
+    category: 'Energia y Potencia',
+    subcategory: 'Generadores y Grupos Electrogenos',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Shimaha',
+    specs: ['210 cc', '7 Hp', '17L', '4T'],
+    image: '/fotos/Energia y Potencia/SHG2800 1 50.jpg',
+    description: 'Con salida de 220V, arranque manual, para uso profesional.'
+  },
+
+  //DISCONTINUADOS
+  {
+    id: 113,
+    name: 'Mototaladro',
+    category: 'Discontinuados',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Spartan',
+    specs: ['3000 +- 2000rpm', '26cc', '2T'],
+    image: '/fotos/Discontinuados/SPGD260.jpg',
+    description: 'Con mandril de 13mm, incluye dos mechas y funcion reversa.'
+  },
+  {
+    id: 114,
+    name: 'Motosierra',
+    category: 'Discontinuados',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Spartan',
+    specs: ['52cc', '20"', '2T'],
+    image: '/fotos/Discontinuados/SPC520.jpg',
+    description: 'Para uso liviano con sistema antivibratorio'
+  },
+  {
+    id: 115,
+    name: 'Afilador de cadenas',
+    category: 'Discontinuados',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Spartan',
+    specs: [''],
+    image: '/fotos/Discontinuados/SPAF-250.jpg',
+    description: 'Afilador para cadenas de motosierras con piedra de 3,2mm.'
+  },
+  {
+    id: 116,
+    name: 'Pulverizador',
+    category: 'Discontinuados',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Spartan',
+    specs: [''],
+    image: '/fotos/Discontinuados/SPP620.jpg',
+    description: 'Pulverizador a motor con tanque de 20L, formato mochila y motor de 26cc'
+  },
+  {
+    id: 117,
+    name: 'Bomba sumergible',
+    category: 'Discontinuados',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Gladiator PRO',
+    specs: ['2850rpm', '11/2Hp'],
+    image: '/fotos/Discontinuados/BPP886 1 25.jpg',
+    description: 'Bomba sumergible de pozo profundo con altura maxima de 78m, caudal de 2 a 4 m2 /h y 12 etapas. Incluye tablero.'
+  },
+  {
+    id: 118,
+    name: 'Sierra caladora',
+    category: 'Discontinuados',
+    price: 0,
+    iva:10.5,
+    badge: '',
+    brand: 'Gladiator PRO',
+    specs: ['400 W'],
+    image: '/fotos/Discontinuados/SK 455 2 220.jpg',
+    description: 'Sierra caladora com velocidad en vacio de 500-3.000/min y capacidad de corte de 6mm en acero y 55mm en madera.'
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ];
